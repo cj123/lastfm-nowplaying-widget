@@ -1,5 +1,4 @@
 /* 
- * WebScrobble
  * A last.fm now playing widget
  * (c) 2012 Callum Jones
  * <cj@icj.me>
@@ -16,6 +15,16 @@ div#lastfm {
   border-radius: 9px;
   box-shadow: black 0px 0px 5px;
   text-align: left;
+}
+div#lastfm.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+div#lastfm.left {
+  float: left;
+}
+div#lastfm.right {
+  float: right;
 }
 div#lastfm div#topbar {
   background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAeCAIAAACT/LgdAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwgAADsIBFShKgAAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTAw9HKhAAAAZElEQVQ4T+3QuxHCQBAE0amdBHYv/6iEAH2QBEQCIfRZclT1zLZa32ZIsPtnV9pz4NMM6d0M9aRHM6S9DGkrQ3qVIa1lSEsZ0lwBaaqA9KyAetJHBqR7BqQxA9ItA9KQAZ2e/gA+vYiAMApOIgAAAABJRU5ErkJggg==);
@@ -60,6 +69,7 @@ div#lastfm div#songinfo {
   height: 40px;
   float: right;
   text-shadow: none;
+  text-align: left;
 }
 div#lastfm div#songinfo a {
   color: black;
@@ -89,6 +99,7 @@ div#lastfm div#userinfo {
   left: 15px;
   top: 22px;
   width: 155px;
+  text-align: left;
   text-shadow: none;
 }
 div#lastfm div#userinfo a {
