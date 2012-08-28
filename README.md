@@ -1,4 +1,4 @@
-# drunken-bear
+# Last.fm Now Playing Widget
 
 A simple widget that displays a user's currently played song on [last.fm](http://last.fm).
 
