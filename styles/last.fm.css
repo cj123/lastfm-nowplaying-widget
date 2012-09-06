@@ -54,6 +54,24 @@ div#lastfm div#topbar.black {
   background-image: -webkit-linear-gradient(bottom, #242424 14%, #1f1b1f 57%, #242424 79%);
   background-image: -ms-linear-gradient(bottom, #242424 14%, #242424 79%);
 }
+div#lastfm div#lastplayed {
+  font-size: 0.6em;
+  font-weight: bold;
+  position: absolute;
+  text-align: center;
+  float: left;
+  width: 70px;
+  height: 11px;
+  padding-bottom: 1px;
+  color: white;
+  background-color: rgba(255, 0, 0, 0.5);
+  top: 104px;
+  left: 14px;
+  z-index: 10;
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
 div#lastfm img#artwork {
   width: 70px;
   height: 70px;
@@ -105,7 +123,7 @@ div#lastfm div#userinfo {
   float: left;
   left: 15px;
   top: 22px;
-  width: 155px;
+  width: 170px;
   text-align: left;
   text-shadow: none;
 }
