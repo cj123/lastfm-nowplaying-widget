@@ -11,13 +11,29 @@
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/* Note: this requires a HTML5 doctype (<!doctype html>) to work correctly */
- 
+/* Note: this requires a HTML5 doctype (<!doctype html>) to work correctly if you are including the php file. */
+
+// allow iFraming
+header('X-Frame-Options: GOFORIT'); 
+
 // your API key here. Sign up at http://www.last.fm/api/account
 $api_key = "";
 
-// the username you want to get the info from
+// default last.fm username
 $username = "";
+
+// if you want to embed the php file, change this to true
+$embedded = false;
+
+if($_GET["username"]) {
+	$username = $_GET["username"];
+}
+
+if($_GET["color"] == "black") {
+	$color = "black";
+} else {
+	$color = "red";
+}
 
 /* ----------------- change below here with caution! ----------------- */
 
@@ -74,9 +90,19 @@ $duration = gmdate("i:s", ($track_info->track->duration / 1000));
 // get current status of lovin'
 if ($track_info->track->userloved == 1) $user_loved = "<strong>&#x2764;</strong> &nbsp; ";
 
+if(!$embedded) {
+	print '<!doctype html>
+<html>
+<head>
+	<title>' . $username . ' on last.fm</title>
+	<link rel="stylesheet" type="text/css" href="styles/last.fm.css">
+</head>
+<body>';
+}
+
 // create the widget
-print('<div id="lastfm">
-	<div id="topbar">
+print '<div id="lastfm">
+	<div id="topbar" class="' . $color . '">
 		now playing &middot; last.fm
 	</div>
 	<img id="artwork" src="' . $albumart . '">
@@ -88,5 +114,9 @@ print('<div id="lastfm">
 	<div id="userinfo">
 		' . $user_loved . '<strong>&#9835;:</strong> ' . $playcount . ' &nbsp; <strong>t:</strong> ' . $duration . ' &nbsp; <strong>u:</strong> <a target="_blank" href="http://www.last.fm/user/' . $username .'">' . $username . '</a>
 	</div>
-</div>' . "\n");
+</div>' . "\n";
+
+if(!$embedded) {
+	print '</body></html>';
+}
 ?>
