@@ -122,7 +122,7 @@ print '<div id="lastfm">
 	if (!$playing) {
 		print $listendate;
 	}
-	print '<a href="' . $album_link . '"><img id="artwork" src="' . $albumart . '"></a>
+	print '<a target="_blank" href="' . $album_link . '"><img id="artwork" src="' . $albumart . '"></a>
 	<div id="songinfo">
 		<artist>' . $artist . '</artist>
 		<song><a target="_blank" href="' . $trackurl . '">' . $trackname . '</a></song>
