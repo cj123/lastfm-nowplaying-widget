@@ -92,7 +92,7 @@ $track_info = simplexml_load_string($track_info);
 
 $playcount = $track_info->track->userplaycount;
 if (!$playcount) $playcount = 1;
-
+$album_link = $track_info->track->album[0]->url;
 $duration = gmdate("i:s", ($track_info->track->duration / 1000));
 
 
@@ -105,6 +105,7 @@ if(!$embedded) {
 <head>
 	<title>' . $username . ' on last.fm</title>
 	<link rel="stylesheet" type="text/css" href="styles/last.fm.css">
+	<meta http-equiv="refresh" content="30">
 </head>
 <body>';
 }
@@ -121,7 +122,7 @@ print '<div id="lastfm">
 	if (!$playing) {
 		print $listendate;
 	}
-	print '<img id="artwork" src="' . $albumart . '">
+	print '<a href="' . $album_link . '"><img id="artwork" src="' . $albumart . '"></a>
 	<div id="songinfo">
 		<artist>' . $artist . '</artist>
 		<song><a target="_blank" href="' . $trackurl . '">' . $trackname . '</a></song>
