@@ -27,16 +27,6 @@ $username = "";
 // if you want to embed the php file, change this to true
 $embedded = false;
 
-if($_GET["username"]) {
-	$username = $_GET["username"];
-}
-
-if($_GET["color"] == "black") {
-	$color = "black";
-} else {
-	$color = "red";
-}
-
 /* ----------------- change below here with caution! ----------------- */
 
 function retrieveData($url) {
@@ -51,6 +41,22 @@ function retrieveData($url) {
 	
 	return curl_exec($ch);
 	curl_close($ch);
+}
+
+if($_GET["username"]) {
+	$username = $_GET["username"];
+}
+
+if($_GET["autorefresh"] == "no") {
+	$autorefresh = false;
+} else {
+	$autorefresh = true;
+}
+
+if($_GET["color"] == "black") {
+	$color = "black";
+} else {
+	$color = "red";
 }
 
 $api_root = "http://ws.audioscrobbler.com/2.0/";
@@ -95,6 +101,10 @@ if (!$playcount) $playcount = 1;
 $album_link = $track_info->track->album[0]->url;
 $duration = gmdate("i:s", ($track_info->track->duration / 1000));
 
+// empties
+if(!$duration) $duration = "##:##";
+if(!$album) $album = "Unknown album";
+if(!$artist) $artist = "Unknown artist";
 
 // get current status of lovin'
 if ($track_info->track->userloved == 1) $user_loved = "<strong>&#x2764;</strong> &nbsp; ";
@@ -104,9 +114,9 @@ if(!$embedded) {
 <html>
 <head>
 	<title>' . $username . ' on last.fm</title>
-	<link rel="stylesheet" type="text/css" href="styles/last.fm.css">
-	<meta http-equiv="refresh" content="30">
-</head>
+	<link rel="stylesheet" type="text/css" href="styles/last.fm.css">';
+	if ($autorefresh) print '<meta http-equiv="refresh" content="30">';
+print '</head>
 <body>';
 }
 
