@@ -102,9 +102,10 @@ $album_link = $track_info->track->album[0]->url;
 $duration = gmdate("i:s", ($track_info->track->duration / 1000));
 
 // empties
-if(!$duration) $duration = "##:##";
-if(!$album) $album = "Unknown album";
-if(!$artist) $artist = "Unknown artist";
+if($duration == "00:00") $duration = "##:##";
+// for some reason, with the responses, it doesnt unset it, its something... :S
+if($album == "") $album = "Unknown album";
+if($artist == "") $artist = "Unknown artist";
 
 // get current status of lovin'
 if ($track_info->track->userloved == 1) $user_loved = "<strong>&#x2764;</strong> &nbsp; ";
@@ -132,8 +133,9 @@ print '<div id="lastfm">
 	if (!$playing) {
 		print $listendate;
 	}
-	print '<a target="_blank" href="' . $album_link . '"><img id="artwork" src="' . $albumart . '"></a>
-	<div id="songinfo">
+	if($albumart != "") print '<a target="_blank" href="' . $album_link . '"><img id="artwork" src="' . $albumart . '"></a>';
+	
+	print '<div id="songinfo">
 		<artist>' . $artist . '</artist>
 		<song><a target="_blank" href="' . $trackurl . '">' . $trackname . '</a></song>
 		<album>' . $album .'</album>
