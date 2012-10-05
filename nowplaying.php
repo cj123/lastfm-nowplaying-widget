@@ -97,8 +97,10 @@ $track_info = retrieveData($api_root . "?method=track.getInfo&username=" . $user
 $track_info = simplexml_load_string($track_info);
 
 $playcount = $track_info->track->userplaycount;
-if (!$playcount) $playcount = 1;
+if(!$playcount) $playcount = 1;
 $album_link = $track_info->track->album[0]->url;
+
+
 $duration = gmdate("i:s", ($track_info->track->duration / 1000));
 
 // empties
@@ -133,8 +135,13 @@ print '<div id="lastfm">
 	if (!$playing) {
 		print $listendate;
 	}
-	if($albumart != "") print '<a target="_blank" href="' . $album_link . '"><img id="artwork" src="' . $albumart . '"></a>';
-	
+	if($albumart != "") {
+		if($album_link != "") {
+			print '<a target="_blank" href="' . $album_link . '"><img id="artwork" src="' . $albumart . '"></a>';
+		} else {
+			print '<img id="artwork" src="' . $albumart . '">';
+		}
+	}
 	print '<div id="songinfo">
 		<artist>' . $artist . '</artist>
 		<song><a target="_blank" href="' . $trackurl . '">' . $trackname . '</a></song>
