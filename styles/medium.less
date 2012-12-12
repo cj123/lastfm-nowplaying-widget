@@ -1,0 +1,95 @@
+div#lastfm { &.medium {
+	display: block;
+	width: 250px;
+	height: 115px;
+	
+	div#topbar {
+		height: 20px;
+	}
+
+	
+	div#lastplayed {
+		font-size: 0.6em;
+		font-weight: bold;
+		position: relative;
+		text-align: center;
+		display: block;
+		width: 70px;
+		height: 11px;
+		padding-bottom: 1px;
+		color: #fff;
+		background-color: rgba(255, 0, 0, 0.5);
+		z-index: 30;
+		border-bottom: 1px solid #000;
+		border-left: 1px solid #000;
+		border-right: 1px solid #000;
+	}
+	
+	img#artwork {
+		width: 70px;
+		height: 70px;
+		position: relative;
+		top: 5px;
+		z-index: 5;
+		left: 5px;
+		&:after {
+			content: attr(title);
+			font-size: 0.6em;
+		}
+	}
+
+	div#songinfo {
+		font-size: 0.65em;
+		width: 165px;
+		display: inline-block;
+		position: relative;
+		top: 5px;
+		height: 40px;
+		float: right;
+		text-shadow: none;
+		text-align: left;
+		a {
+			color: #000;
+			text-decoration: none;
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+		artist, song, album {
+			display: block;
+			line-height: 1.5em;
+			width: 155px;	
+		}
+		song {
+			font-weight: bold;
+		}
+		
+	}
+	
+	marquee {
+		line-height: 1.5em;
+	}
+	
+	div#userinfo {
+		font-size: 0.6em;
+		color: grey;
+		position: relative;
+		float: left;
+		left: 15px;
+		top: 22px;
+		width: 170px;
+		text-align: left;
+		text-shadow: none;
+		a {
+			color: grey;
+			text-decoration: none;
+			&.userlink {
+				float: right;
+			}
+			&:hover {
+				text-decoration: underline;
+				color: #404040;
+			}
+		}
+	}
+}}
