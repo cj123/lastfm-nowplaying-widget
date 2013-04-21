@@ -65,15 +65,15 @@ class lastfm_nowplaying {
 			}
 		}
 
-		// make 'image' only the large one (that we want) and also add in the no artwork if its the case
+		// make 'image' only the extra large one (that we want) and also add in the no artwork if its the case
 		$track['image'] = $track['image'][3]['#text'] ? $track['image'][3]['#text'] : 'no_artwork.png';
 
 		// nowplaying info
 		$track['nowplaying'] = isset($track['@attr']['nowplaying']);
 		unset($track['@attr']); // cleanup
 
-		// load the information from the track api call
-		$track_json = $this->retrieveData($this->api_root . "?format=json&method=track.getInfo&username=" . $username . "&api_key=" . $this->api_key . "&artist=" . urlencode($track['artist']) . "&track=" . urlencode($track['name']) . "&autocorrect=1");
+		// load the information from the track api call using mbid
+		$track_json = $this->retrieveData($this->api_root . "?format=json&method=track.getInfo&username=" . $username . "&api_key=" . $this->api_key . "&mbid=" . urlencode($track['mbid']) . "&autocorrect=1");
 
 		$track_arr = json_decode($track_json, true);
 		$track = $track + $track_arr['track'];
@@ -87,10 +87,9 @@ class lastfm_nowplaying {
 				// do we know the values?
 				if(strlen($value) == 0) {
 					$track[$key] = "Unknown $key";
-					$value = $track[$key]; // fix for line below
+				} else { // if its not there, we don't need to check if it's too long...
+					$track[$key] = $this->is_too_long($value);
 				}
-
-				$track[$key] = $this->is_too_long($value);
 			}
 		}
 
