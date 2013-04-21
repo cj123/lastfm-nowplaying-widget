@@ -4,7 +4,7 @@
 <head>
 	<title><?php echo $username; ?> on last.fm</title>
 	<link rel="stylesheet" type="text/css" href="styles/last.fm.css">
-	<style type="text/css">body { background: <?php echo $bgcolor; ?> }</style>
+	<style type="text/css">body { background: #<?php echo $bgcolor; ?> }</style>
 	<?php if($autorefresh) { ?><meta http-equiv="refresh" content="100"><?php } ?>
 </head>
 <body>
