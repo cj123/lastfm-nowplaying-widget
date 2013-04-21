@@ -23,7 +23,7 @@
 			<album><?php echo $track['album']; ?></album>
 		</div>
 		<div id="userinfo">
-			<?php echo $track['userloved'] . $delimiter; ?><strong>&#9835;:</strong> <?php echo $track['playcount'] . $delimiter; ?><strong>t:</strong> <?php echo $track['duration']. $delimiter; ?><strong>u:</strong> <a target="_blank" href="http://www.last.fm/user/<?php echo $username; ?>"><?php echo $username; ?></a>
+			<?php echo $track['userloved']; if($track['userloved']) echo $delimiter; ?><strong>&#9835;:</strong> <?php echo $track['playcount'] . $delimiter; ?><strong>t:</strong> <?php echo $track['duration']. $delimiter; ?><strong>u:</strong> <a target="_blank" href="http://www.last.fm/user/<?php echo $username; ?>"><?php echo $username; ?></a>
 		</div>
 	</div>
 </body>
