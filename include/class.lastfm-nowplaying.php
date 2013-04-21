@@ -45,6 +45,8 @@ class lastfm_nowplaying {
 	public function info($username) {
 
 		$recent_tracks = $this->retrieveData($this->api_root . "?format=json&method=user.getrecenttracks&user=" . $username . "&api_key=" . $this->api_key . "&limit=5");
+		
+
 		$recent_tracks = json_decode($recent_tracks, true);
 
 		if(isset($recent_tracks["error"]) && ($recent_tracks["error"] == 10)) {
@@ -70,11 +72,15 @@ class lastfm_nowplaying {
 
 		// nowplaying info
 		$track['nowplaying'] = isset($track['@attr']['nowplaying']);
-		unset($track['@attr']); // cleanup
+		if(isset($track['@attr'])) unset($track['@attr']); // cleanup
 
-		// load the information from the track api call using mbid
-		$track_json = $this->retrieveData($this->api_root . "?format=json&method=track.getInfo&username=" . $username . "&api_key=" . $this->api_key . "&mbid=" . urlencode($track['mbid']) . "&autocorrect=1");
-
+		if($track['mbid']) {
+			// load the information from the track api call using mbid
+			$track_json = $this->retrieveData($this->api_root . "?format=json&method=track.getInfo&username=" . $username . "&api_key=" . $this->api_key . "&mbid=" . urlencode($track['mbid']) /*. "&autocorrect=1"*/);
+		} else {
+			// if no mbid, try the album+artist
+			$track_json = $this->retrieveData($this->api_root . "?format=json&method=track.getInfo&username=" . $username . "&api_key=" . $this->api_key . "&artist=" . urlencode($track['artist']) . "&track=" . urlencode($track['name']) . "&autocorrect=1");
+		}
 		$track_arr = json_decode($track_json, true);
 		$track = $track + $track_arr['track'];
 		$track['playcount'] = isset($track['userplaycount']) ? $track['userplaycount'] : 1;
