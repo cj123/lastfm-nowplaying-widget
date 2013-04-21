@@ -7,9 +7,13 @@ class lastfm_nowplaying {
 	private $api_root = "http://ws.audioscrobbler.com/2.0/";
 	private $user_agent = 'nowplaying widget - http://www.icj.me/';
 	
-	public function __construct($api_key, $size) {
+	public function __construct($api_key, $size = "medium") {
 		$this->api_key = $api_key;
 		$this->size = $size;
+
+		if(!$this->api_key) { 
+			throw new exception("Please set an API key."); 
+		}
 	}
 
 	private function is_too_long($string) {
@@ -43,6 +47,9 @@ class lastfm_nowplaying {
 		$recent_tracks = $this->retrieveData($this->api_root . "?format=json&method=user.getrecenttracks&user=" . $username . "&api_key=" . $this->api_key . "&limit=5");
 		$recent_tracks = json_decode($recent_tracks, true);
 
+		if(isset($recent_tracks["error"]) && ($recent_tracks["error"] == 10)) {
+			throw new exception("Unable to get data. Is your API key correct?");
+		}
 
 		// get the users top track's information from what we can
 		$track = $recent_tracks['recenttracks']['track']['0'];
@@ -59,7 +66,7 @@ class lastfm_nowplaying {
 		}
 
 		// make 'image' only the large one (that we want) and also add in the no artwork if its the case
-		$track['image'] = $track['image'][2]['#text'] ? $track['image'][2]['#text'] : 'no_artwork.png';
+		$track['image'] = $track['image'][3]['#text'] ? $track['image'][3]['#text'] : 'no_artwork.png';
 
 		// nowplaying info
 		$track['nowplaying'] = isset($track['@attr']['nowplaying']);
