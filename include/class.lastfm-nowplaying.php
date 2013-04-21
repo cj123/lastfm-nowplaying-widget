@@ -7,13 +7,15 @@ class lastfm_nowplaying {
 	private $api_root = "http://ws.audioscrobbler.com/2.0/";
 	private $user_agent = 'nowplaying widget - http://www.icj.me/';
 	
-	public function __construct($api_key) {
+	public function __construct($api_key, $size) {
 		$this->api_key = $api_key;
+		$this->size = $size;
 	}
 
-	private function is_too_long($string, $size = "medium") {
-		if($size == "medium") $len = 30;
-		if($size == "tall") $len = 25;
+	private function is_too_long($string) {
+		
+		if($this->size == "medium") $len = 30;
+		if($this->size == "tall") $len = 25;
 		
 		// marquees if the string is too long
 		if(strlen($string) >= $len) {

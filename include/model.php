@@ -2,8 +2,6 @@
 
 date_default_timezone_set('Europe/London');
 
-$api_key = "APIKEY";
-
 // parse options
 $username = isset($_GET["username"]) ? $_GET["username"] : "icj_";
 $size = isset($_GET["size"]) ? $_GET["size"] : "medium";
@@ -19,7 +17,7 @@ header('Content-Type: text/html; charset=utf-8');
 include __DIR__ . "/class.lastfm-nowplaying.php";
 
 try {
-	$np = new lastfm_nowplaying($api_key);
+	$np = new lastfm_nowplaying('a6f083cd54542e5e31df6e6bdec00850', $size);
 	$track = $np->info($username);
 } catch (exception $e) {
 	printf("error %s", $e);
